@@ -207,4 +207,4 @@ redirects.forEach((redirect) =>
   writeBadge(redirect.redirect, redirect.badge || redirect.name)
 );
 
-writeBadge("homeassistant", "Jenkins");
+writeBadge("jenkins", "Jenkins");
