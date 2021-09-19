@@ -3,11 +3,11 @@ import {
   createSearchParam,
   extractSearchParamsObject,
 } from "../util/search-params";
-import { getInstanceUrl } from "../data/instance_info";
-import { Redirect } from "../const";
-import { svgPencil } from "../components/svg-pencil";
-import { isMobile } from "../data/is_mobile";
-import { validateParam } from "../util/validate";
+import {getInstanceUrl} from "../data/instance_info";
+import {Redirect} from "../const";
+import {svgPencil} from "../components/svg-pencil";
+import {isMobile} from "../data/is_mobile";
+import {validateParam} from "../util/validate";
 
 declare global {
   interface Window {
@@ -36,7 +36,7 @@ let changingInstance = false;
 const render = (showTroubleshooting: boolean) => {
   const instanceUrl = getInstanceUrl();
 
-  let params;
+  let params: string;
   try {
     params = createRedirectParams();
   } catch (err) {
@@ -59,7 +59,7 @@ const render = (showTroubleshooting: boolean) => {
     return;
   }
 
-  const redirectUrl = `${instanceUrl}/_my_redirect/${window.redirect.redirect}${params}`;
+  const redirectUrl = `${instanceUrl}/${window.redirect.redirect}${params}`;
 
   document.querySelector(".open-link")!.outerHTML = `
     <a href="${redirectUrl}" class='open-link' rel="noopener">
@@ -98,7 +98,7 @@ const render = (showTroubleshooting: boolean) => {
 render(false);
 
 // For Safari/FF to handle history.back() after update instance URL
-window.onpageshow = (event) => {
+window.onpageshow = (event: PageTransitionEvent) => {
   if (event.persisted) {
     render(true);
   }

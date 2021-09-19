@@ -24,7 +24,7 @@ class MyInstanceInfo extends LitElement {
     return html`
       <div class="instance-info">
         <div>
-          <div class="instance-header">HOME ASSISTANT INSTANCE</div>
+          <div class="instance-header">JENKINS INSTANCE</div>
           <a href=${this.instanceUrl} rel="noreferrer noopener" target="_blank">
             ${this.instanceUrl}
           </a>

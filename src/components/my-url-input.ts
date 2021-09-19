@@ -34,7 +34,7 @@ export class MyUrlInputMain extends LitElement {
       ${this._error ? html` <p class="error">${this._error}</p> ` : ""}
       <div>
         <mwc-textfield
-          label="Home Assistant URL"
+          label="Jenkins URL"
           .value=${this.value || ""}
           placeholder=${DEFAULT_HASS_URL}
           @keydown=${this._handleInputKeyDown}

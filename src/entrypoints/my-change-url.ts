@@ -65,8 +65,8 @@ class MyChangeUrl extends LitElement {
         ? html`
             <div class="highlight">
               You are seeing this page because you have been linked to a page in
-              your Home Assistant instance but have not configured My Home
-              Assistant. Enter the URL of your Home Assistant instance to
+              your Jenkins instance but have not configured My Home
+              Assistant. Enter the URL of your Jenkins instance to
               continue.
             </div>
           `
@@ -74,7 +74,7 @@ class MyChangeUrl extends LitElement {
       <div class="card-content">
         ${this._instanceUrl
           ? html`<p>
-              Configure My Home Assistant by entering the URL of your Home
+              Configure My Jenkins by entering the URL of your Home
               Assistant instance.
             </p>`
           : ""}
@@ -95,7 +95,7 @@ class MyChangeUrl extends LitElement {
     const instanceUrl = ev.detail.value;
 
     if (!instanceUrl) {
-      this._error = "You need to configure a URL to use My Home Assistant.";
+      this._error = "You need to configure a URL to use My Jenkins.";
       return;
     }
 

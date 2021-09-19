@@ -1,5 +1,5 @@
 {
-    "name": "My Home Assistant",
+    "name": "My Jenkins",
     "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:14",
     "postCreateCommand": "yarn install",
     "context": "..",

@@ -1,9 +1,9 @@
 import "@material/mwc-button";
 import "@material/mwc-select";
 import "@material/mwc-textfield";
-import type { TextField } from "@material/mwc-textfield";
-import { repeat } from "lit-html/directives/repeat.js";
-import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
+import type {TextField} from "@material/mwc-textfield";
+import {repeat} from "lit-html/directives/repeat.js";
+import {unsafeHTML} from "lit-html/directives/unsafe-html.js";
 import copy from "clipboard-copy";
 import {
   customElement,
@@ -17,9 +17,9 @@ import {
   createSearchParam,
   extractSearchParamsObject,
 } from "../util/search-params";
-import type { Button } from "@material/mwc-button";
-import { ParamType, Redirect } from "../const";
-import { validateParam } from "../util/validate";
+import type {Button} from "@material/mwc-button";
+import {ParamType, Redirect} from "../const";
+import {validateParam} from "../util/validate";
 
 const prettify = (key: string) =>
   capitalizeFirst(key.replace("_", " ").replace("url", "URL"));
@@ -27,25 +27,26 @@ const prettify = (key: string) =>
 const capitalizeFirst = (text: string) =>
   text.charAt(0).toUpperCase() + text.slice(1);
 
-let initialRedirect;
 const passedInData = extractSearchParamsObject();
-{
+const getInitialRedirect = (): Redirect => {
+  let initialRedirect: Redirect | unknown;
   if (passedInData.redirect) {
-    initialRedirect = redirects.find(
-      (info) => info.redirect === passedInData.redirect
-    );
+    initialRedirect = (redirects as Array<Redirect>).find((info) => info.redirect === passedInData.redirect);
   }
   if (!initialRedirect) {
     // Select first one without params so we show the output
-    initialRedirect = redirects.find((info) => info.params === undefined);
+    initialRedirect = (redirects as Array<Redirect>).find((info) => info.params === undefined);
   }
-}
+  return initialRedirect as Redirect;
+};
 
-const filteredRedirects = redirects.filter(redirect => !redirect.deprecated)
+let initialRedirect = getInitialRedirect();
+
+const filteredRedirects = (redirects as Array<Redirect>).filter(redirect => !redirect.deprecated);
 
 @customElement("my-create-link")
 class MyCreateLink extends LitElement {
-  @state() _redirect: Redirect = initialRedirect;
+  @state() _redirect = initialRedirect;
   @state() _paramsValues = {};
 
   protected createRenderRoot() {
@@ -66,28 +67,28 @@ class MyCreateLink extends LitElement {
           @selected=${this._itemSelected}
         >
           ${filteredRedirects.map(
-            (redirect) =>
-              html`<mwc-list-item
+      (redirect) =>
+        html`<mwc-list-item
                 .selected=${this._redirect?.redirect === redirect.redirect}
                 .value=${redirect.redirect}
                 >${redirect.name}</mwc-list-item
               >`
-          )}
+    )}
         </mwc-select>
 
         ${repeat(
-          Object.keys(this._redirect?.params || []),
-          (key) => `${this._redirect.redirect}-${key}`,
-          (key) => html`<mwc-textfield
+      Object.keys(this._redirect?.params || []),
+      (key) => `${this._redirect.redirect}-${key}`,
+      (key) => html`<mwc-textfield
             required
             validationMessage="This field is required"
             .label=${prettify(key)}
             data-key="${key}"
             @input=${this._paramChanged}
           ></mwc-textfield>`
-        )}
+    )}
         ${this.isValid
-          ? html`
+        ? html`
               <h1>Your URL</h1>
                 <p>A URL to share with others, for example, when chatting on
                 our <a href="https://www.home-assistant.io/join-chat"
@@ -125,7 +126,7 @@ ${badgeHTML}</textarea
                 </mwc-button>
               </a>
             `
-          : ""}
+        : ""}
       </div>
     `;
   }
@@ -166,7 +167,7 @@ ${badgeHTML}</textarea
       this._redirect &&
       (!this._redirect.params ||
         Object.keys(this._redirect.params).length ===
-          Object.keys(this._paramsValues).length)
+        Object.keys(this._paramsValues).length)
     );
   }
 
@@ -177,7 +178,6 @@ ${badgeHTML}</textarea
       return;
     }
 
-    // @ts-expect-error
     this._redirect = newRedirect;
     this._paramsValues = {};
   }
@@ -196,17 +196,15 @@ ${badgeHTML}</textarea
     if (value) {
       ev.currentTarget.setCustomValidity("");
       ev.currentTarget.reportValidity();
-      this._paramsValues = { ...this._paramsValues, [key]: value };
+      this._paramsValues = {...this._paramsValues, [key]: value};
     } else {
-      this._paramsValues = { ...this._paramsValues };
+      this._paramsValues = {...this._paramsValues};
       delete this._paramsValues[key];
     }
   }
 
   private get _url() {
-    return `https://my.home-assistant.io/redirect/${this._redirect.redirect}/${
-      this._redirect.params ? `?${createSearchParam(this._paramsValues)}` : ""
-    }`;
+    return `https://my.jenkins.io/redirect/${this._redirect.redirect}/${this._redirect.params ? `?${createSearchParam(this._paramsValues)}` : ""}`;
   }
 
   private _copyURL(ev: Event) {
@@ -226,7 +224,7 @@ ${badgeHTML}</textarea
       await copy(text);
       this._copySuccess(button);
     } catch (err) {
-      this._copyFailure(err);
+      this._copyFailure(err as Error);
     }
   }
 
@@ -245,7 +243,7 @@ ${badgeHTML}</textarea
   }
 
   private get _altText() {
-    return `Open your Home Assistant instance and ${this._redirect.description}.`;
+    return `Open your Jenkins instance and ${this._redirect.description}.`;
   }
 
   private _createBadge() {
@@ -253,17 +251,14 @@ ${badgeHTML}</textarea
   }
 
   private _createHTML() {
-    return `<a href="${
-      this._url
-    }" target="_blank"><img src="${window.location.origin}${this._createBadge()}" alt="${
-      this._altText
-    }" /></a>`;
+    return `<a href="${this._url
+      }" target="_blank"><img src="${window.location.origin}${this._createBadge()}" alt="${this._altText
+      }" /></a>`;
   }
 
   private _createMarkdown() {
-    return `[![${
-      this._altText
-    }](https://my.home-assistant.io${this._createBadge()})](${this._url})`;
+    return `[![${this._altText
+      }](https://my.jenkins.io${this._createBadge()})](${this._url})`;
   }
 
   private _select(ev) {

@@ -3,13 +3,13 @@
 {% endcomment %}
 {%- if redirect -%}
 {% capture title %}Link to {{redirect.name}}{% endcapture %}
-{% capture description %}{{redirect.description | title }} in Home Assistant.{% endcapture %}
+{% capture description %}{{redirect.description | title }} in Jenkins.{% endcapture %}
 {%- endif -%}
 {% capture full_title -%}
 {%- if title -%}
-{{ title }} – My Home Assistant
+{{ title }} – My Jenkins
 {%- else -%}
-My Home Assistant
+My Jenkins
 {%- endif -%}
 {%- endcapture %}
 {% comment %}
@@ -24,16 +24,16 @@ My Home Assistant
     <meta name="description" content="{{ description }}" />
     <meta name="viewport" content="width=device-width" />
     <meta property="og:title" content="{{ full_title }}" />
-    <meta property="og:site_name" content="My Home Assistant" />
+    <meta property="og:site_name" content="My Jenkins" />
     <meta
       property="og:url"
-      content="https://my.home-assistant.io{{ page.url }}"
+      content="https://my.jenkins.io{{ page.url }}"
     />
     <meta property="og:type" content="website" />
     <meta property="og:description" content="{{ description }}" />
     <meta
       property="og:image"
-      content="https://my.home-assistant.io/images/social.png"
+      content="https://my.jenkins.io/images/social.png"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@home_assistant" />
@@ -41,7 +41,7 @@ My Home Assistant
     <meta name="twitter:description" content="{{ description }}" />
     <meta
       name="twitter:image"
-      content="https://my.home-assistant.io/images/social.png"
+      content="https://my.jenkins.io/images/social.png"
     />
     <style>
       html {
@@ -221,10 +221,10 @@ My Home Assistant
       {{ content | safe }}
       <div class="spacer"></div>
       <div class="footer">
-        <a href="/">My Home Assistant</a> –
+        <a href="/">My Jenkins</a> –
         <a href="/create-link/">Create link</a> – <a href="/faq/">FAQ</a> –
         <a
-          href="https://github.com/home-assistant/my.home-assistant.io/issues"
+          href="https://github.com/home-assistant/my.jenkins.io/issues"
           target="_blank"
           rel="noopener"
           >Report bug</a

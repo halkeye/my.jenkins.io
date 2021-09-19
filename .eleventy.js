@@ -18,19 +18,19 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addLiquidFilter("redirectExamplePath", function (redirect) {
-    return `/redirect/${
-      redirect.redirect
-    }/${redirect.example ? `?${createSearchParam(redirect.example)}` : ""}`;
+    return `/redirect/${redirect.redirect
+      }/${redirect.example ? `?${createSearchParam(redirect.example)}` : ""}`;
   });
 
   eleventyConfig.addLiquidFilter("version", function (value) {
+    value = value || ''
     if (value.startsWith("supervisor-")) {
-      return `Home Assistant Supervisor ${value.replace("supervisor-", "")}`;
+      return `Jenkins Supervisor ${value.replace("supervisor-", "")}`;
     }
     if (value.startsWith("core-")) {
-      return `Home Assistant Core ${value.replace("core-", "")}`;
+      return `Jenkins Core ${value.replace("core-", "")}`;
     }
-    return `Home Assistant Core ${value}`;
+    return `Jenkins Core ${value}`;
   });
 
   if (process.env.NODE_ENV === "production") {
@@ -44,7 +44,7 @@ module.exports = function (eleventyConfig) {
           minifyJS: {
             safari10: false,
             ecma: undefined,
-            output: { comments: false },
+            output: {comments: false},
           },
         });
         return minified;

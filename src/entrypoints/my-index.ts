@@ -51,7 +51,7 @@ class MyIndex extends LitElement {
           ${!this._instanceUrl
             ? html`
                 <p>
-                  Configure My Home Assistant by entering the URL of your Home
+                  Configure My Jenkins by entering the URL of your Home
                   Assistant instance.
                 </p>
               `
@@ -85,7 +85,7 @@ class MyIndex extends LitElement {
     const instanceUrl = ev.detail.value;
 
     if (!instanceUrl) {
-      this._error = "You need to configure a URL to use My Home Assistant.";
+      this._error = "You need to configure a URL to use My Jenkins.";
       return;
     }
 
