@@ -11,12 +11,12 @@ cp redirect.json dist
 # valid JS to render.
 # We can't watch dist/manifest.json because .gitignore
 # is ignored by default and don't want to maintain own ignore.
-yarn rollup -c
+npx rollup -c
 
 # Quit all background tasks when script exits
 trap "kill 0" EXIT
 
-yarn serve dist &
-yarn eleventy --watch &
-yarn rollup -c --watch
+npx serve dist &
+npx eleventy --watch &
+npx rollup -c --watch
 wait
