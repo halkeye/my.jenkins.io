@@ -1,9 +1,5 @@
-import { HASS_URL, MOBILE_URL } from "../const";
-import { isMobile } from "./is_mobile";
+import { JENKINS_URL } from "../const";
 
 export const getInstanceUrl = (): string | null => {
-  if (isMobile) {
-    return MOBILE_URL;
-  }
-  return localStorage.getItem(HASS_URL);
+  return localStorage.getItem(JENKINS_URL);
 };

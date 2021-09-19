@@ -12,10 +12,10 @@ import {
   property,
   query,
 } from "lit-element";
-import { DEFAULT_HASS_URL } from "../const";
+import { DEFAULT_JENKINS_URL } from "../const";
 import { fireEvent } from "../util/fire_event";
 
-const HASS_URL = "hassUrl";
+const JENKINS_URL = "hassUrl";
 
 @customElement("my-url-input")
 export class MyUrlInputMain extends LitElement {
@@ -36,7 +36,7 @@ export class MyUrlInputMain extends LitElement {
         <mwc-textfield
           label="Jenkins URL"
           .value=${this.value || ""}
-          placeholder=${DEFAULT_HASS_URL}
+          placeholder=${DEFAULT_JENKINS_URL}
           @keydown=${this._handleInputKeyDown}
         ></mwc-textfield>
         <mwc-button @click=${this._handleSave}>Update</mwc-button>
@@ -57,9 +57,9 @@ export class MyUrlInputMain extends LitElement {
     this._error = undefined;
 
     if (value === "") {
-      value = DEFAULT_HASS_URL;
+      value = DEFAULT_JENKINS_URL;
       try {
-        window.localStorage.setItem(HASS_URL, value);
+        window.localStorage.setItem(JENKINS_URL, value);
       } catch (err) {
         this._error = "Failed to store your URL!";
         return;
@@ -86,7 +86,7 @@ export class MyUrlInputMain extends LitElement {
     }
     const url = `${urlObj.protocol}//${urlObj.host}`;
     try {
-      window.localStorage.setItem(HASS_URL, url);
+      window.localStorage.setItem(JENKINS_URL, url);
     } catch (err) {
       this._error = "Failed to store your URL!";
       return;

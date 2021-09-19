@@ -13,7 +13,6 @@ import "../components/my-instance-info";
 import { getInstanceUrl } from "../data/instance_info";
 import { extractSearchParamsObject } from "../util/search-params";
 import { MyUrlInputMain } from "../components/my-url-input";
-import { isMobile } from "../data/is_mobile";
 
 const changeRequestedFromRedirect = extractSearchParamsObject().redirect;
 
@@ -29,21 +28,6 @@ class MyChangeUrl extends LitElement {
     return this;
   }
 
-  public connectedCallback() {
-    super.connectedCallback();
-    if (isMobile && changeRequestedFromRedirect) {
-      const parts = decodeURIComponent(changeRequestedFromRedirect).split("?");
-      const params = new URLSearchParams(parts[1]);
-      params.append("mobile", "1");
-      const url = `/redirect/${parts[0]}/?${params.toString()}`;
-      setTimeout(() => document.location.assign(url), 100);
-    }
-    if (isMobile) {
-      (document.querySelector(".footer") as HTMLDivElement).style.display =
-        "none";
-    }
-  }
-
   protected firstUpdated(changedProps: PropertyValues) {
     super.firstUpdated(changedProps);
     this.updateComplete.then(() => this._urlInput?.focus());
@@ -54,12 +38,6 @@ class MyChangeUrl extends LitElement {
   }
 
   protected render(): TemplateResult {
-    if (isMobile && !changeRequestedFromRedirect) {
-      return html`<div class="card-content error">
-        No valid redirect provided
-      </div>`;
-    }
-
     return html`
       ${changeRequestedFromRedirect && !this._instanceUrl
         ? html`

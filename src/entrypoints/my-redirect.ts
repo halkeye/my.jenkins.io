@@ -6,7 +6,6 @@ import {
 import {getInstanceUrl} from "../data/instance_info";
 import {Redirect} from "../const";
 import {svgPencil} from "../components/svg-pencil";
-import {isMobile} from "../data/is_mobile";
 import {validateParam} from "../util/validate";
 
 declare global {
@@ -41,11 +40,9 @@ const render = (showTroubleshooting: boolean) => {
     params = createRedirectParams();
   } catch (err) {
     alert("Invalid parameters given.");
-    if (!isMobile) {
-      document.location.assign(
-        `/create-link?redirect=${window.redirect.redirect}`
-      );
-    }
+    document.location.assign(
+      `/create-link?redirect=${window.redirect.redirect}`
+    );
     return;
   }
 
@@ -66,12 +63,6 @@ const render = (showTroubleshooting: boolean) => {
       <mwc-button>Open Link</mwc-button>
     </a>
   `;
-
-  if (isMobile) {
-    (document.querySelector(".footer") as HTMLDivElement).style.display =
-      "none";
-    return;
-  }
 
   let changeInstanceEl = document.querySelector(".instance-footer")!;
   changeInstanceEl.innerHTML = `
